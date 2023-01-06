@@ -83,3 +83,20 @@ input {
     color: white;
     font-family: 'Poppins', sans-serif;
 }
+
+#mensajes {
+    width: 280px;
+    background : #F1F7B5;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    display : flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#boton-reiniciar {
+    border : none;
+    color: #FD8A8A;
+    font-family: 'Poppins', sans-serif;
+}
