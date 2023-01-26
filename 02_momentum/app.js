@@ -1,13 +1,20 @@
 const loginForm = document.querySelector("#login-form")
 const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
+
+const HIDDEN_CLASSNAME = "hidden";
 
 function onLoginSubmit(event) {
     event.preventDefault();
-    console.log(loginInput.value);
+    const username = loginInput.value;
+    loginForm.className.add(HIDDEN_CLASSNAME);
+    console.log(username);    
+    greeting.innerText = "Hello " + username;
+    greeting.innerText = `Hello ${username}`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
 }
 
 loginForm.addEventListener("submit", onLoginSubmit);
 
-// form을 submit 할 떄 입력값을 받아내는 것은 완료
-// 하지만 아직 새로고침은 못 막고 있다. 이를 해결하기 위해 preventDefault 함수를 활용해준다.
-// 중요한 건, event 가 발생할 떄 브라우저가 function을 호출하게 되는데, 이 함수가 하나의 argument를 받도록 하고 그걸 JS에 넘겨주고 있다.
+// hidden 이라는 클래스를 등록해주고 classList.add 또는 classList.remove 속성을 통해 조절해준다.
+// string 을 입력할 떄 `를 활용해서 입력하는 새로운 방식을 배웠다. ' 과 ` 는 다르니 주의한다.
