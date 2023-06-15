@@ -45,6 +45,7 @@ body {
     border-radius: 20px;
     font-size: 32px;
     margin-top: 8px;
+    visibility: hidden;
 }
 
 .game__score {
@@ -57,7 +58,7 @@ body {
     border-radius: 50%;
     background-color: darksalmon;
     color: white;
-
+    visibility: hidden;
 }
 
 
@@ -67,6 +68,7 @@ body {
     height: 100%;
     margin-top: 40px;
     opacity: 0.4;
+    position: relative;
 }
 
 .pop-up {
@@ -98,4 +100,12 @@ body {
 .pop-up__message {
     display: block;
     font-size: 38px;
+}
+
+.crab {
+    background: url(imgs/crab.png);
+}
+
+.clam {
+    background: url(imgs/clam.png);
 }
