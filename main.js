@@ -7,6 +7,7 @@ const CLAM_COUNT = 10;
 const CRAB_COUNT = 10;
 const GAME_DURATION_SEC = 60;
 
+field.addEventListener('click', onFieldClick);
 const gameBtn = document.querySelector('.game__btn');
 const gameScore = document.querySelector('.game__score');
 
@@ -25,10 +26,15 @@ gameBtn.addEventListener('click', () => {
     } else {
         startGame();
     }
-    started = !started;
 });
 
+popUpRefresh.addEventListener('click', () => {
+    startGame();
+    hidePopUP();
+})
+
 function stopGame() {
+    started = false;
     stopGameTimer();
     hideGameButton();
     showPopUpWithText('Replay?');
@@ -47,7 +53,12 @@ function showPopUpWithText(text) {
     popUp.classList.remove('pop-up--hide');
 }
 
+function hidePopUP() {
+    popUp.classList.add('pop-up--hide');
+}
+
 function startGame() {
+    started = true;
     init();
     showStopButton();
     showTimerAndScore();
@@ -55,16 +66,47 @@ function startGame() {
 }
 
 function init () {
+    score = 0;
     field.innerHTML = '';
     gameScore.innerText = CLAM_COUNT;
     addItem('crab', CRAB_COUNT, 'imgs/crab.png');
     addItem('clam', CLAM_COUNT, 'imgs/clam.png');
 }
 
+function onFieldClick(event) {
+    console.log(event);
+    if(!started) {
+        return;
+    }
+    const target = event.target;
+    if(target.matches('.clam')) {
+        target.remove();
+        score++;
+        updateScoreBoard();
+        if(score === CLAM_COUNT) {
+            finishGame(true);
+        }
+    } else if(target.matches('.crab')) {
+        finishGame(false);
+    }
+}
+
+function updateScoreBoard() {
+    gameScore.innerText = CLAM_COUNT - score;
+}
+
+function finishGame(win) {
+    started = false;
+    hideGameButton();
+    stopGameTimer();
+    showPopUpWithText(win? 'You won !!!' : 'You Lost ...');
+}
+
 function showStopButton() {
-    const icon = gameBtn.querySelector('.fa-circle-play');
-    icon.classList.add('fa-circle-stop');
-    icon.classList.remove('fa-circle-play');
+    const icon = gameBtn.querySelector('.fas');
+    icon.classList.add('fa-stop');
+    icon.classList.remove('fa-play');
+    gameBtn.style.visibility = 'visible';
 }
 
 function showTimerAndScore () {
@@ -79,6 +121,7 @@ function startGameTimer () {
     timer = setInterval(() => {
         if(remainingTimeSec <= 0) {
             clearInterval(timer);
+            finishGame(CLAM_COUNT === score);
             return;
         }
         updateTimerText(--remainingTimeSec);
