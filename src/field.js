@@ -41,7 +41,7 @@ export default class Field {
         }
     }
 
-    onClick(event) {
+    onClick = event => {
         const target = event.target;
         if(target.matches('.clam')) {
             target.remove();
@@ -49,7 +49,7 @@ export default class Field {
         } else if(target.matches('.crab')) {
             this.onItemClick && this.onItemClick('crab');
         }
-    }
+    };
 }
 
 function randomNumber(num1, num2) {
