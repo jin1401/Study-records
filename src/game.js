@@ -2,7 +2,28 @@
 
 import Field from './field.js';
 
-export default class Game {
+export default class GameBuilder {
+    gameDuration(duration) {
+        this.gameDuration = duration;
+        return this;
+    }
+    clamCount(num) {
+        this.clamCount = num;
+        return this;
+    }
+    crabCount(num) {
+        this.crabCount = num;
+        return this;
+    }
+    build() {
+        return new Game (
+            this.gameDuration,
+            this.clamCount,
+            this.crabCount
+        );
+    }
+}
+class Game {
     constructor(gameDuration, clamCount, crabCount) {
         this.gameDuration = gameDuration;
         this.clamCount = clamCount;
