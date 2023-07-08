@@ -1,6 +1,6 @@
 'use strict';
 import PopUp from './popup.js';
-import GameBuilder from './game.js';
+import { GameBuilder, Reason } from './game.js';
 
 const gameFinishBanner = new PopUp();
 gameFinishBanner.setClickListener(()=> {
@@ -8,21 +8,21 @@ gameFinishBanner.setClickListener(()=> {
 });
 
 const game = new GameBuilder()
-    .gameDuration(5)
-    .clamCount(10)
-    .crabCount(10)
+    .withGameDuration(10)
+    .withClamCount(10)
+    .withCrabCount(10)
     .build();
 
 game.setGameStopListener((reason) => {
     let message;
     switch(reason) {
-        case 'cancel':
+        case Reason.cancel:
             message = 'Replay';
             break;
-        case 'win':
+        case Reason.win:
             message = 'YOU WON!';
             break;
-        case 'lose':
+        case Reason.lose:
             message = 'YOU LOST ..';
             break;
         default:

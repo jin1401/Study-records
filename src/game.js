@@ -2,16 +2,22 @@
 
 import Field from './field.js';
 
-export default class GameBuilder {
-    gameDuration(duration) {
+export const Reason = Object.freeze({
+    win: 'win',
+    lose: 'lose',
+    cancel: 'cancel',
+});
+
+export class GameBuilder {
+    withGameDuration(duration) {
         this.gameDuration = duration;
         return this;
     }
-    clamCount(num) {
+    withClamCount(num) {
         this.clamCount = num;
         return this;
     }
-    crabCount(num) {
+    withCrabCount(num) {
         this.crabCount = num;
         return this;
     }
@@ -66,14 +72,14 @@ class Game {
         this.started = false;
         this.stopGameTimer();
         this.hideGameButton();
-        this.onGameStop && this.onGameStop('cancel');
+        this.onGameStop && this.onGameStop(Reason.cancel);
     }
     
     finish(win) {
         this.started = false;
         this.hideGameButton();
         this.stopGameTimer();
-        this.onGameStop && this.onGameStop(win ? 'win' : 'lose');
+        this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lose);
     }
     
 
